@@ -1,0 +1,1 @@
+export const serverURI = "http://api.printmall.by/api/v1/";

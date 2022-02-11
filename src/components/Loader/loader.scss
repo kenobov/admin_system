@@ -1,0 +1,38 @@
+.loaderComponent {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.3);
+  color: #fff;
+  z-index: 99;
+  font-size: 50px;
+  display: none;
+  visibility: hidden;
+  transition: all 1s ease;
+
+  &.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: visible;
+    transition: all 1s ease;
+
+    svg {
+      animation-name: rotation;
+      animation-duration: 1s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform:rotate(0deg);
+  }
+  100% {
+    transform:rotate(360deg);
+  }
+}
