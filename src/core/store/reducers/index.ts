@@ -2,7 +2,10 @@ import { combineReducers } from 'redux';
 import { APP_LOADING_START, APP_LOADING_FINISH } from "../actions/types";
 import {appLoadingActionType} from '../actions/actions';
 
-import authReducer, {IAuthState} from "./auth";
+import authReducer from "./auth";
+import ordersReducer from "./orders";
+import clientsReducer from "./clients";
+import orderReducer from "./order";
 
 export interface IAppInitState {
     loading: boolean
@@ -17,12 +20,12 @@ const indexReducer = (state = AppInitState, action:appLoadingActionType) => {
         case APP_LOADING_START:
             return {
                 ...state,
-                loading: action.payload
+                loading: true
             }
         case APP_LOADING_FINISH:
             return {
                 ...state,
-                loading: action.payload
+                loading: false
             }
         default:
             return state
@@ -31,7 +34,10 @@ const indexReducer = (state = AppInitState, action:appLoadingActionType) => {
 
 const rootReducer = combineReducers({
     app: indexReducer,
-    auth: authReducer
+    auth: authReducer,
+    order: orderReducer,
+    orders: ordersReducer,
+    clients: clientsReducer
 });
 
 export type RootStateType = ReturnType<typeof rootReducer>;

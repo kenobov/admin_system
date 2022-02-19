@@ -8,11 +8,9 @@ export type appLoadingActionType = {
 
 
 export const appLoadingStart: ActionCreator<Action> = () => ({
-    type: APP_LOADING_START,
-    payload: true
+    type: APP_LOADING_START
 } as const);
 
 export const appLoadingFinish: ActionCreator<Action> = () => ({
-    type: APP_LOADING_FINISH,
-    payload: false
+    type: APP_LOADING_FINISH
 } as const);

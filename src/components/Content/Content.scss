@@ -1,0 +1,8 @@
+.content {
+  padding-left: 90px;
+
+  @media (max-width: 992px) {
+    padding-left: 0;
+    padding-bottom: 90px;
+  }
+}

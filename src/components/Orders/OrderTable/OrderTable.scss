@@ -1,0 +1,102 @@
+.orderTable {
+  background: #ffffff;
+  padding: 5px;
+  border-radius: 10px;
+  display: flex;
+  height: 60px;
+  box-shadow: 0 5px 5px rgba(0,0,0,.05);
+  position: relative;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.overdue {
+    //background-color: #fdd2d2;
+    box-shadow: 0 5px 5px rgba(0,0,0,.2);
+  }
+
+  .marks {
+    display: flex;
+    flex-direction: row-reverse;
+    top: -10px;
+    right: -10px;
+    position: absolute;
+
+    .mark {
+      display: block;
+      width: 18px;
+      height: 18px;
+      padding: 2px;
+      color: white;
+      border-radius: 50%;
+      margin-left: 5px;
+      &.isUrgent {
+        background-color: #fc9414
+      }
+      &.isLate {
+        background-color: red;
+      }
+      &.isSelf {
+        background-color: #128cfa;
+      }
+    }
+  }
+
+  .order_number {
+    background-color: #ffffff;
+    color: #000;
+    flex: 0 0 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    font-weight: 800;
+    border-radius: 10px;
+    padding: 0;
+    border: 3px solid #cbcbcb;
+
+    &.info {
+      border-color: #128cfa
+    }
+    &.success {
+      border-color: #02db7a
+    }
+    &.danger {
+      border-color: #f50422
+    }
+    &.warning {
+      border-color: #fc9414
+    }
+    &.dark {
+      border-color: #343434
+    }
+  }
+
+  .order_content {
+    padding: 5px 2px 5px 10px;
+    white-space: nowrap;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    h3 {
+      font-size: 14px;
+      font-weight: 400;
+      margin: 0 0 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .client {
+      font-size: 12px;
+      padding: 0 5px;
+      color: #444;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

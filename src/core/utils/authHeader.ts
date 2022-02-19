@@ -1,11 +1,18 @@
 import {authModel} from "../models/auth.model";
 import {AxiosRequestHeaders} from "axios";
 
+const headers = {
+    'Accept': 'application/json'
+}
+
 export default function authHeader():AxiosRequestHeaders {
-    const user:authModel = JSON.parse(localStorage.getItem('user') || '');
-    if (user && user.access_token) {
-        return { Authorization: 'Bearer ' + user.access_token };
+    const token:authModel = JSON.parse(localStorage.getItem('token') || '');
+    if (token && token.access_token) {
+        return {
+            ...headers,
+            Authorization: 'Bearer ' + token.access_token
+        };
     } else {
-        return {};
+        return headers;
     }
 }

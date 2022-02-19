@@ -1,7 +1,16 @@
 body {
   background-color: #eaeaea;
   height: 100vh;
+  font-family: 'Roboto', Calibri, Arial;
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active{
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
 
 .container-flex {
   height: 100vh;
@@ -26,4 +35,14 @@ body {
     height: 30px;
     margin-right: 10px;
   }
+}
+
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
 }

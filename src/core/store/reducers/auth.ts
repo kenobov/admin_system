@@ -1,8 +1,7 @@
 import {
     AUTH_LOGIN_SUCCESS,
     AUTH_LOGIN_FAIL,
-    AUTH_LOGOUT,
-    AUTH_REFRESH
+    AUTH_LOGOUT
 } from "../actions/auth/types";
 
 import {authActionType} from "../actions/auth/actions";
@@ -10,43 +9,43 @@ import {authModel} from "../../models/auth.model";
 
 export interface IAuthState {
     isLoggedIn: boolean,
-    user: authModel | null,
+    token: authModel | null,
     message: string | null
 }
 
-const storeUser = localStorage.getItem("user");
-const user = storeUser
-    ? <authModel>JSON.parse(storeUser)
+const storeToken = localStorage.getItem("token");
+const token = storeToken
+    ? <authModel>JSON.parse(storeToken)
     : null;
 
-const AuthInitState: IAuthState = user
-    ? { isLoggedIn: true, user, message: null }
-    : { isLoggedIn: false, user: null, message: null };
+const AuthInitState: IAuthState = token
+    ? { isLoggedIn: true, token, message: null }
+    : { isLoggedIn: false, token: null, message: null };
 
 const authReducer = (
     state = AuthInitState,
     action: authActionType
 ) => {
-    const { type, user, message } = action;
+    const { type, token, message } = action;
     switch (type) {
         case AUTH_LOGIN_SUCCESS:
             return {
                 ...state,
                 isLoggedIn: true,
-                user,
+                token,
             };
         case AUTH_LOGIN_FAIL:
             return {
                 ...state,
                 isLoggedIn: false,
-                user: null,
+                token: null,
                 message
             };
         case AUTH_LOGOUT:
             return {
                 ...state,
                 isLoggedIn: false,
-                user: null
+                token: null
             };
         default:
             return state;
