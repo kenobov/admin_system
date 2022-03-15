@@ -29,9 +29,23 @@
       justify-content: center;
       margin: 10px 0;
       color: #999999;
+      position: relative;
 
       &.active {
         color: #dc3545;
+      }
+
+      &.active:after {
+        display: block;
+        content: "";
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        background-color: #dc3545;
+        border-radius: 50%;
+        top: 100%;
+        right: 50%;
+        transform: translate(50%, -180%);
       }
 
       &:not(.active):hover {
@@ -76,7 +90,8 @@
     }
 
     .avatar {
-      display: none;
+      flex: 0;
+      margin: 0 20px;
     }
 
   }

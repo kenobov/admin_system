@@ -1,0 +1,26 @@
+.DeliveryModal {
+
+  .paper {
+    padding: 10px 15px;
+    background: #eaeaea;
+    border: 2px solid #eaeaea;
+    text-align: center;
+
+    h6 {
+      font-size: 14px;
+    }
+
+    em {
+      font-size: 12px;
+    }
+
+    &.done {
+      border-color: #02db7a;
+    }
+
+    &.error {
+      border-color: #fd2323;
+    }
+  }
+
+}

@@ -3,13 +3,7 @@ import { serverURI } from "../config/api.config";
 import {authModel} from "../models/auth.model";
 import authHeader from "../utils/authHeader";
 
-export interface IApiAuthService {
-    login: (email:string, password:string) => Promise<AxiosResponse | AxiosError>,
-    logout: () => Promise<AxiosResponse | AxiosError>,
-    refresh: () => Promise<AxiosResponse | AxiosError>
-}
-
-export const ApiAuthService: IApiAuthService = {
+export const ApiAuthService = {
 
     login(email:string, password:string) {
 
@@ -53,6 +47,14 @@ export const ApiAuthService: IApiAuthService = {
             })
             .catch((e:AxiosError) => {
                 throw e;
+            })
+    },
+
+    getUsers() {
+        return axios
+            .get<authModel>(serverURI + "users?page=1&limit=50", { headers: authHeader()})
+            .then((response:AxiosResponse) => {
+                return response;
             })
     }
 

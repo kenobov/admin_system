@@ -24,7 +24,8 @@ interface ClientsModalProps {
     callback:(...params:any) => void,
     clients: clientsModel[],
     count: number,
-    loading: boolean
+    loading: boolean,
+    order: 'orders' | 'delivery'
 }
 
 const mapStateToProps = (state: RootStateType) => ({
@@ -48,7 +49,7 @@ const ClientsModal = (props:ClientsModalProps) => {
 
     const dispatch = useDispatch();
     const searchInput = React.useRef<HTMLInputElement>();
-    const {callback, clients, count, loading} = props;
+    const {callback, clients, count, loading, order} = props;
     const pageCount = Math.ceil(count/limits.clients);
 
     React.useEffect(() => {
@@ -56,8 +57,6 @@ const ClientsModal = (props:ClientsModalProps) => {
             setSession(null)
         }
     },[]);
-
-    console.log(pageCount)
 
     React.useEffect(() => {
         dispatch(getClients())
@@ -92,7 +91,11 @@ const ClientsModal = (props:ClientsModalProps) => {
                         ? <ClientTableSkeleton fraction={50} />
                         : clients.length > 0
                             ? clients.map(client => {
-                                return <ClientTable client={client} callback={callback} key={`clientModal${client.id}`} />
+                                return <ClientTable client={client}
+                                                    callback={callback}
+                                                    key={`clientModal${client.id}`}
+                                                    order={order}
+                                />
                             })
                             : <div style={{gridColumnStart:1, gridColumnEnd:5}}>
                                 <NoData />

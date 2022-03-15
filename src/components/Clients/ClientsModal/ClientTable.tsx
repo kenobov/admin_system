@@ -8,12 +8,13 @@ import {AiOutlineUnorderedList} from "react-icons/ai";
 
 interface ClientTableProps {
     client: clientsModel,
-    callback: (client:clientsModel) => void
+    callback: (client:clientsModel) => void,
+    order: 'orders' | 'delivery'
 }
 
 const ClientTable = (props:ClientTableProps) => {
 
-    const {client, callback} = props;
+    const {client, callback, order} = props;
 
     return (
         <React.StrictMode>
@@ -27,7 +28,7 @@ const ClientTable = (props:ClientTableProps) => {
             </div>
             <div>
                 <Chip
-                    label={client.orders}
+                    label={client[order]}
                     deleteIcon={<AiOutlineUnorderedList />}
                 />
             </div>

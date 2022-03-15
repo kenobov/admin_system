@@ -17,7 +17,9 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+
 import {BsFillRecordCircleFill} from "react-icons/bs";
+import {FiRefreshCw} from "react-icons/fi";
 
 import './Orders.scss';
 import useSessionStorage from "../../core/hooks/useSessionStorage";
@@ -48,7 +50,7 @@ type OrdersProps = {
 
 interface OrdersState {
     page: number,
-    status: number,
+    status: number | 'all',
     type: string,
     client: number
 }
@@ -58,7 +60,7 @@ const Orders = (props: OrdersProps) => {
     const dispatch = useDispatch();
     const [session, setSession] = useSessionStorage({
         page: 1,
-        status: 0,
+        status: 'all',
         type: 'all',
         client: 0
     }, "orders");
@@ -77,10 +79,21 @@ const Orders = (props: OrdersProps) => {
     const pageCount = Math.ceil(count/limits.orders);
 
     React.useEffect(() => {
-        dispatch(getOrders())
+        refreshOrders();
     }, [state]);
 
-    const changeStatusHandler = (id: number) => {
+    React.useEffect(() => {
+        events.addListener('dataRefresh', refreshOrders);
+        return () => {
+            events.removeListener('dataRefresh', refreshOrders);
+        }
+    },[]);
+
+    const refreshOrders = () => {
+        dispatch(getOrders())
+    }
+
+    const changeStatusHandler = (id: number | 'all') => {
         setSession({...session, status: id, page: 1});
         setState({...state, status: id, page: 1});
     }
@@ -111,7 +124,7 @@ const Orders = (props: OrdersProps) => {
             fullwidth: true,
             maxwidth: 'md',
             modalTitle: 'Фильтр по организации',
-            modalContent: <ClientsModal callback={clientModalCallback} />
+            modalContent: <ClientsModal callback={clientModalCallback} order={'orders'} />
         })
     }
 
@@ -127,55 +140,61 @@ const Orders = (props: OrdersProps) => {
                     Заказы
                 </h1>
 
-                <div style={{display:"flex", alignItems:'center'}}>
-                    <FormControl variant="outlined">
-                        <InputLabel>Организация</InputLabel>
-                        <OutlinedInput id="organization" name="organization"
-                            type={'text'}
-                            disabled
-                            value={name}
-                            onClick={clientsInModal}
-                            endAdornment={
-                                client
-                                    ? <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                changeClientHandler(0)
-                                            }}
-                                            onMouseDown={(e => e.preventDefault())}
-                                            edge="end"
-                                        >
-                                            <MdOutlineCancel />
-                                        </IconButton>
-                                    </InputAdornment> : null
-                            }
-                            label="Password"
-                        />
-                    </FormControl>
+                <IconButton aria-label="refresh"
+                            onClick={() => dispatch(getOrders())}
+                            size="large">
+                    <FiRefreshCw />
+                </IconButton>
+            </Stack>
 
-                    <FormControl sx={{ m: 1, minWidth: 180 }}>
-                        <Select value={type} onChange={changeTypeHandler}>
-                            <MenuItem value={'all'}>
-                                <em>Вся продукция</em>
-                            </MenuItem>
-                            {
-                                orderTypes.map((type:orderTypesType) => {
-                                    return <MenuItem value={type.name} key={type.name}>
-                                        {type.translate}
-                                    </MenuItem>
-                                })
-                            }
-                        </Select>
-                    </FormControl>
-                </div>
+            <Stack direction="row" spacing={2} className={`ordersFilters`}>
+                <FormControl variant="outlined">
+                    <InputLabel>Организация</InputLabel>
+                    <OutlinedInput id="organization" name="organization"
+                                   type={'text'}
+                                   disabled
+                                   value={name}
+                                   onClick={clientsInModal}
+                                   endAdornment={
+                                       client
+                                           ? <InputAdornment position="end">
+                                               <IconButton
+                                                   aria-label="toggle password visibility"
+                                                   onClick={(e) => {
+                                                       e.stopPropagation();
+                                                       changeClientHandler(0)
+                                                   }}
+                                                   onMouseDown={(e => e.preventDefault())}
+                                                   edge="end"
+                                               >
+                                                   <MdOutlineCancel />
+                                               </IconButton>
+                                           </InputAdornment> : null
+                                   }
+                                   label="Password"
+                    />
+                </FormControl>
+
+                <FormControl sx={{ m: 1, minWidth: 180 }}>
+                    <Select value={type} onChange={changeTypeHandler}>
+                        <MenuItem value={'all'}>
+                            <em>Вся продукция</em>
+                        </MenuItem>
+                        {
+                            orderTypes.map((type:orderTypesType) => {
+                                return <MenuItem value={type.name} key={type.name}>
+                                    {type.translate}
+                                </MenuItem>
+                            })
+                        }
+                    </Select>
+                </FormControl>
             </Stack>
 
             <Stack direction="row" spacing={2} className={'statusContainer'}>
                 <Button variant="outlined"
-                        disabled={!status}
-                        onClick={() => changeStatusHandler(0)}>
+                        disabled={status === 'all'}
+                        onClick={() => changeStatusHandler('all')}>
                     Все
                 </Button>
                 {

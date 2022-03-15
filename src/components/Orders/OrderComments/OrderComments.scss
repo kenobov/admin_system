@@ -1,0 +1,63 @@
+
+.comment {
+  border: 2px solid #eaeaea;
+  position: relative;
+  margin-bottom: 25px;
+  padding: 10px 15px;
+  background-color: #eaeaea;
+
+  &:before {
+    display: block;
+    height: 12px;
+    position: absolute;
+    top: -16px;
+    left: 10px;
+    background: #eaeaea;
+    border-radius: 5px 5px 0 0;
+    color: black;
+    font-size: 10px;
+    padding: 1px 5px;
+    content: "Информация"
+  }
+
+  &.important {
+    border: 2px solid red;
+  }
+
+  &.important:before {
+    background: red;
+    color: #fff;
+    content: "Важно"
+  }
+
+  &.file {
+    border: 2px solid #04b157;
+  }
+
+  &.file:before {
+    background: #04b157;
+    color: #fff;
+    content: "Файл"
+  }
+
+  &.info {
+    border: 2px solid #1d8cf8;
+  }
+
+  &.info:before {
+    background: #1d8cf8;
+    color: #fff;
+    content: "Состояние"
+  }
+
+  .comment_name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .comment_content {
+    font-size: 16px;
+  }
+
+}

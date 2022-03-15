@@ -6,6 +6,7 @@ export interface ordersModel {
     key: string | null,
     total: number,
     ready: number,
+    parameters: string,
     delivered: number,
     is_urgent: number,
     deadline: string,
@@ -14,5 +15,7 @@ export interface ordersModel {
     client_id: number,
     display_name: string,
     invoice_number: number,
-    name: string
+    name: string,
+    comments?: number | null,
+    packs?: number | null
 }

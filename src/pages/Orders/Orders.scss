@@ -5,6 +5,17 @@
     padding: 0;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .ordersFilters {
+    padding: 0;
+    justify-content: stretch;
+    align-items: center;
+
+    > div {
+      flex: 1;
+    }
   }
 
   h1 {
@@ -40,7 +51,7 @@
       &.success {
         color: #02db7a
       }
-      &.danger {
+      &.danger, &.error {
         color: #f50422
       }
       &.warning {

@@ -1,6 +1,5 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
-import stringAvatar from "../../core/utils/stringAvatar";
 
 import Tooltip from '@mui/material/Tooltip';
 import Popper from '@mui/material/Popper';
@@ -12,13 +11,16 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Paper from '@mui/material/Paper';
 import { grey } from '@mui/material/colors';
 
-import {BsTruck, BsReceiptCutoff, BsColumnsGap, BsBoxSeam} from "react-icons/bs";
+import { BsTruck, BsReceiptCutoff, BsColumnsGap, BsBoxSeam } from "react-icons/bs";
 import { MdOutlineLogout } from "react-icons/md";
 import { BiCog } from "react-icons/bi";
+import { AiOutlineUsergroupAdd } from "react-icons/ai";
 
 import './Sidebar.scss';
 import {useDispatch} from "react-redux";
 import {authLogout} from "../../core/store/actions/auth/actions";
+import useWindowSize from "../../core/hooks/useWindowSize";
+import events from "../../core/events";
 
 const Sidebar: React.FC = () => {
 
@@ -28,17 +30,24 @@ const Sidebar: React.FC = () => {
         dispatch(authLogout());
     }
 
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const clickModalHandler = () => {
+        events.emit('modalOpen', {
+            modalTitle: null,
+            modalContent: <Paper>
+                <List sx={{minWidth: 200}}>
+                    <ListItem button onClick={onLogout}>
+                        <ListItemAvatar>
+                            <Avatar sx={{ bgcolor: grey[300], color: grey[900] }}>
+                                <MdOutlineLogout/>
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText primary={"Выйти"}/>
+                    </ListItem>
+                </List>
+            </Paper>
+        });
+    }
 
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(anchorEl ? null : event.currentTarget);
-    };
-
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popper' : undefined;
-
-    //const user = localStorage.getItem('user');
-    //const username = user ? JSON.parse(user).user.name : "Администратор";
 
     return (
         <aside className="sidebar">
@@ -50,9 +59,9 @@ const Sidebar: React.FC = () => {
                         <BsColumnsGap />
                     </NavLink>
                 </Tooltip>
-                <Tooltip title="Упаковки" placement="right" arrow>
-                    <NavLink to={"/packs"} >
-                        <BsBoxSeam />
+                <Tooltip title="Отгрузки" placement="right" arrow>
+                    <NavLink to={"/delivery"} >
+                        <BsTruck />
                     </NavLink>
                 </Tooltip>
                 <Tooltip title="Счета" placement="right" arrow>
@@ -60,32 +69,20 @@ const Sidebar: React.FC = () => {
                         <BsReceiptCutoff />
                     </NavLink>
                 </Tooltip>
-                <Tooltip title="Отгрузки" placement="right" arrow>
-                    <NavLink to={"/delivery"} >
-                        <BsTruck />
+                <Tooltip title="Сотрудники" placement="right" arrow>
+                    <NavLink to={"/employees"} >
+                        <AiOutlineUsergroupAdd />
                     </NavLink>
                 </Tooltip>
+                {/*<Tooltip title="Упаковки" placement="right" arrow>*/}
+                {/*    <NavLink to={"/packs"} >*/}
+                {/*        <BsBoxSeam />*/}
+                {/*    </NavLink>*/}
+                {/*</Tooltip>*/}
             </div>
 
-            <Popper open={open} anchorEl={anchorEl}
-                    placement="right-end"
-                    disablePortal={false}>
-                <Paper>
-                    <List sx={{minWidth: 200}}>
-                        <ListItem button onClick={onLogout}>
-                            <ListItemAvatar>
-                                <Avatar sx={{ bgcolor: grey[300], color: grey[900] }}>
-                                    <MdOutlineLogout/>
-                                </Avatar>
-                            </ListItemAvatar>
-                            <ListItemText primary={"Выйти"}/>
-                        </ListItem>
-                    </List>
-                </Paper>
-            </Popper>
-
-            <div className={"avatar"} aria-describedby={id} onClick={handleClick}>
-                <Avatar sx={{bgcolor: grey[300], color: grey[800]}} >
+            <div className={"avatar"} onClick={clickModalHandler}>
+                <Avatar sx={{bgColor: grey[300], color: grey[800]}} >
                     <BiCog />
                 </Avatar>
             </div>

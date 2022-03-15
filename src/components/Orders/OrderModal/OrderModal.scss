@@ -1,0 +1,35 @@
+.orderDisplay {
+  padding: 16px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  .paper {
+    padding: 10px 15px;
+    background: #eaeaea;
+    border: 2px solid #eaeaea;
+
+    &.total {
+      border-color: #128cfa;
+    }
+    &.ready {
+      border-color: #02db7a;
+    }
+
+    span {
+      font-size: 12px;
+    }
+
+    &.dark {
+      background-color: #121212;
+      border-color: #121212;
+      color: #d5d5d5
+    }
+  }
+
+  .displayTitle {
+    margin: 15px 0 0;
+    text-align: center;
+  }
+
+}

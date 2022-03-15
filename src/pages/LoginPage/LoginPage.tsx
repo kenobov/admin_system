@@ -92,6 +92,7 @@ const LoginPage: React.FC<ILoginPageProps> = (props: ILoginPageProps) => {
                         value={username}
                         name={"username"}
                         onChange={changeHandler}
+                        required
                     />
 
                     <FormControl variant="outlined">

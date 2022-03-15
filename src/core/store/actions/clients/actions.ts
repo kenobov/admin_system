@@ -43,7 +43,6 @@ export const clientsLoadingEnd: ActionCreator<Action> = () => ({
 export const getClients = () => {
 
     return async (dispatch: Dispatch<clientsActionType>): Promise<any> => {
-        console.log('GET_CLIENTS')
         dispatch({
             type: CLIENTS_LOADING_START
         })

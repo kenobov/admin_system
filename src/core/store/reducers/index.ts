@@ -6,6 +6,9 @@ import authReducer from "./auth";
 import ordersReducer from "./orders";
 import clientsReducer from "./clients";
 import orderReducer from "./order";
+import deliveriesReducer from "./deliveries";
+import deliveryReducer from "./delivery";
+import invoicesReducer from "./invoices";
 
 export interface IAppInitState {
     loading: boolean
@@ -37,7 +40,10 @@ const rootReducer = combineReducers({
     auth: authReducer,
     order: orderReducer,
     orders: ordersReducer,
-    clients: clientsReducer
+    clients: clientsReducer,
+    invoices: invoicesReducer,
+    delivery: deliveryReducer,
+    deliveries: deliveriesReducer
 });
 
 export type RootStateType = ReturnType<typeof rootReducer>;

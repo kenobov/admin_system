@@ -1,7 +1,7 @@
 export type orderStatusType = {
     id: number,
     text: string,
-    color: string
+    color: 'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning'
 }
 
 const orderStatus: orderStatusType[] = [
@@ -13,7 +13,7 @@ const orderStatus: orderStatusType[] = [
     {
         id: 2,
         text: "На паузе",
-        color: "danger"
+        color: "error"
     },
     {
         id: 3,

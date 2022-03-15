@@ -46,7 +46,7 @@ export const getOrder = (id:number) => {
             .then((response) => {
                 dispatch({
                     type: SINGLE_ORDER_GET_SUCCESS,
-                    order: response.data.result,
+                    order: response.data,
                 });
                 return Promise.resolve()
             })

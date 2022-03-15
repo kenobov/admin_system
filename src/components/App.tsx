@@ -13,6 +13,9 @@ import Sidebar from "./Sidebar/Sidebar";
 import Content from "./Content/Content";
 import Modal from "./Modal/Modal";
 import NoData from "./NoData/NoData";
+import Delivery from "../pages/Delivery/Delivery";
+import DeliveryForm from "./Delivery/DeliveryForm/DeliveryForm";
+import Invoices from "../pages/Invoices/Invoices";
 
 type AppProps = {
     loading: boolean,
@@ -23,6 +26,7 @@ type AppProps = {
 
 const mapStateToProps = (state:RootStateType) => ({
     loading: state.app.loading,
+    // @ts-ignore
     isLoggedIn: state.auth.isLoggedIn
 })
 
@@ -43,9 +47,13 @@ const App = (props: AppProps) => {
                          <Content>
                              <Routes>
                                  <Route path="/" element={<Orders />} />
-                                 <Route path="/packs" element={<NoData/>} />
-                                 <Route path="/invoices" element={<NoData/>} />
-                                 <Route path="/delivery" element={<NoData/>} />
+                                 <Route path="/employees" element={<NoData />} />
+                                 <Route path="/invoices" element={<Invoices />} />
+
+                                 <Route path="/delivery/edit/:id" element={<DeliveryForm />} />
+                                 <Route path="/delivery/new" element={<DeliveryForm />} />
+                                 <Route path="/delivery/:id" element={<Delivery />} />
+                                 <Route path="/delivery" element={<Delivery />} />
                              </Routes>
                          </Content>
                        </>

@@ -6,5 +6,6 @@ export interface clientsModel {
     address: string | null,
     address_post: string | null,
     unp: string | null,
-    orders?: number
+    orders?: number,
+    delivery?: number
 }
